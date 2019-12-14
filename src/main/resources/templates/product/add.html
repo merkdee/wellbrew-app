@@ -4,11 +4,48 @@
 <body>
 <h1 th:text="${title}">My Products</h1>
 
+<!-- main navigation -->
 <nav th:replace="fragments :: navigation"></nav>
+<!-- page navigation -->
+
+<!--<nav>
+    &lt;!&ndash;<a href="/product/">View</a> |&ndash;&gt;
+    <a href="/product/add">Add</a> |
+    &lt;!&ndash;<a href="/cheese/remove">Remove</a> |&ndash;&gt;
+    &lt;!&ndash;<a href="/category">Categories</a> |
+    <a href="/menu">Menus</a>&ndash;&gt;
+</nav>-->
+
 <!-- form to insert more products -->
-<form method="post">
-    <input type="text" name="productName" />
-    <input type="submit" value="New Product" />
+<form method="post" style="max-width:600px;">
+    <div class="form-group">
+        <label for="name-field">Product Name</label>
+        <input class="form-control" id="name-field" type="text" name="productName" />
+    </div>
+    <div class="form-group">
+        <label for="price-field">Product Price</label>
+        <input class="form-control" id="price-field" type="text" name="productPrice" />
+    </div>
+    <div class="form-group">
+        <label for="amt-field">Product Quantity</label>
+        <input class="form-control" id="amt-field" type="number" name="productAmt" />
+    </div>
+    <div class="form-group">
+        <label>In-stock?</label>
+        <label for="stocky-field">Yes?</label>
+        <input class="form-control" id="stocky-field" type="radio" name="productStock" />
+        <label for="stockn-field">No?</label>
+        <input class="form-control" id="stockn-field" type="radio" name="productStock" />
+    </div>
+    <div class="form-group">
+        <label for="desc-field">Department</label>
+        <input class="form-control" id="desc-field" type="text" name="productDescription" />
+    </div>
+    <div class="form-group">
+        <label for="vendor-field">Vendor</label>
+        <input class="form-control" id="vendor-field" type="text" name="productDescription" />
+    </div>
+    <input type="submit" value="Add Product" />
 </form>
 </body>
 </html>

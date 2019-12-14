@@ -2,25 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body class="container body-content">
-<h1 th:text="${title}">My Orders</h1>
-<br>
+<h1 th:text="${title}">Remove Order</h1>
 <!-- main navigation -->
 <nav th:replace="fragments :: navigation"></nav>
 
+
 <!--page navigation-->
 <nav>
-    <a href="/order/">View</a> |
+    <!--<a href="/order/">List</a> |-->
     <a href="/order/add">Add</a> |
-    <!--<a href="/cheese/remove">Remove</a> |-->
+    <a href="/order/remove">Remove</a> |
     <!--<a href="/category">Categories</a> |
     <a href="/menu">Menus</a>-->
 </nav>
-
-
-<!-- form to submit a order of products(list) -->
 <br>
-<br>
-<form method="post" style="max-width:600px;">
+
+<form method="post" style="max-width:600px">
 
     <div th:each="order : ${orders}" class="check-box">
         <input type="checkbox" name="order" th:value="${order}" th:id="${order}"/>
@@ -28,7 +25,8 @@
         <br />
     </div>
 
-    <input type="submit" value="Create Order" />
+    <input type="submit" value="Remove Order" />
 </form>
+
 </body>
 </html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<h1 th:text="${title}">My Orders</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+<!-- form to submit a order of products -->
+<form method="post">
+    <label for="orderName">Order Name:</label>
+        <input type="text" name="orderName" />
+
+    <label>
+        <input type="text" name="productName" />
+    </label>
+    <label>
+        <input type="text" name="orderName" />
+    </label>
+    <label>
+        <input type="text" name="quantity" />
+    </label>
+    <label>
+        <input type="text" name="amount" />
+    </label>
+    <label>
+        <input type="text" name="total" />
+    </label>
+    <input type="submit" value="New Product" />
+</form>
+</body>
+</html>

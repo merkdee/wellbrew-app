@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<h1 th:text="${title}">My Products</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+<!-- form to insert more products -->
+<form method="post">
+    <input type="text" name="productName" />
+    <input type="submit" value="New Product" />
+</form>
+</body>
+</html>

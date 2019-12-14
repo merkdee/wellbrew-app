@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<h1 th:text="${title}">My Orders</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<!-- if no products exists regless of size -->
+<p th:unless="${orders} and ${orders.size()}">no products available at this time</p>
+
+<!-- loop through lists of products -->
+<ul>
+    <li th:each="order : ${orders}" th:text="${order}"></li>
+</ul>
+
+</body>
+</html>

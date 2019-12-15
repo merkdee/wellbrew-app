@@ -1,11 +1,14 @@
 package com.wellbrew.wellbrewapp.controller;
 
+import com.wellbrew.wellbrewapp.model.Product;
+import com.wellbrew.wellbrewapp.model.ProductData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,13 +20,16 @@ public class ProductController {
     /*static ArrayList<String> products = new ArrayList<>();*/
 
     //hashmap used to store information (ex.product.put)
-    static HashMap<String, String> products = new HashMap<>();
+   /* static HashMap<String, String> products = new HashMap<>();*/
+
+    /*static ArrayList<Product> products = new ArrayList<>();*/
+
 
     // request path: product/
     @RequestMapping(value = "")
     public String index(Model model) {
 
-        model.addAttribute("products", products);
+        model.addAttribute("products", ProductData.getAll());
         model.addAttribute("title", "Products");
 
         return "product/index";
@@ -39,13 +45,17 @@ public class ProductController {
 
     // Request path: product/add
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddProductForm(@RequestParam String productName, @RequestParam String productDesc){
+    public String processAddProductForm(@RequestParam String name, @RequestParam int amount, @RequestParam String desc, @RequestParam BigDecimal price, @RequestParam boolean inStock, @RequestParam String vendor ){
 
+        // wrapping data into java object to be stored
+        // using functions from cheese data
+        Product newProduct = new Product(name,amount, desc, price, inStock, vendor);
+        ProductData.add(newProduct);
         //previously added products listed within array WHEN INSIDE index function
         /*products.add(productName);*/
 
         //saving product
-        products.put(productName, productDesc);
+        /*products.put(productName, productDesc);*/
 
         //redirect to product/
         return "redirect:";
@@ -54,17 +64,17 @@ public class ProductController {
     //Request path: product/remove
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String displayRemoveProductForm(Model model) {
-        model.addAttribute("products", products.keySet());
+        model.addAttribute("products", ProductData.getAll());
         model.addAttribute("title","Remove Product");
         return "product/remove";
     }
 
     //Request path: product/remove
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveProductForm(@RequestParam ArrayList<String> product) {
+    public String processRemoveProductForm(@RequestParam int[] productIds) {
 
-        for (String aProduct : product) {
-            products.remove(aProduct);
+        for (int productId : productIds) {
+            ProductData.remove(productId);
         }
 
         return "redirect:";

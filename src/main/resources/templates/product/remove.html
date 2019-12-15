@@ -16,12 +16,19 @@
     <a href="/menu">Menus</a>-->
 </nav>
 <br>
+<tr>
 
+    <th>Item Name</th> |
+   <!-- <th>Department</th> |
+    <th>Amount Available</th>-->
+</tr>
 <form method="post">
 
     <div th:each="product : ${products}" class="check-box">
-        <input type="checkbox" name="product" th:value="${product}" th:id="${product}"/>
-        <label th:for="${product}" th:text="${product}"></label>
+        <input type="checkbox" name="productIds" th:value="${product.productId}" th:id="${product.productId}"/>
+        <label th:for="${product.productId}" th:text="${product.name}"></label> |
+      <!--  <label th:for="${product.productId}" th:text="${product.desc}"></label> |
+        <label th:for="${product.productId}" th:text="${product.amount}"></label>-->
         <br />
     </div>
 

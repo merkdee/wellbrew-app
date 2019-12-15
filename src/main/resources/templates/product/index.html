@@ -11,7 +11,7 @@
 <nav>
     <!--<a href="/product/">View</a> |-->
     <a href="/product/add">Add</a> |
-    <!--<a href="/cheese/remove">Remove</a> |-->
+    <a href="/product/remove">Remove</a> |
     <!--<a href="/category">Categories</a> |
     <a href="/menu">Menus</a>-->
 </nav>
@@ -25,13 +25,15 @@
 
         <tr>
 
-            <th>Name</th>
-            <th>Description</th>
+            <th>Item Name</th>
+            <th>Amount Available</th>
+            <th>Department</th>
         </tr>
 
         <tr th:each="product : ${products}">
-            <td th:text="${product.key}"></td>
-            <td th:text="${product.value}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.amount}"></td>
+            <td th:text="${product.desc}"></td>
         </tr>
 
     </table>

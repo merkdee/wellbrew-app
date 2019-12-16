@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body>
+<body class="container body-content">
 <h1 th:text="${title}">My Products</h1>
 
 <!-- main navigation -->
@@ -39,9 +39,9 @@
         <input class="form-control" id="stockn-field" type="radio" name="inStock2" />
     </div>-->
     <div class="form-group">
-        <label th:for="desc">Department</label>
-        <input class="form-control" th:field="*{desc}" />
-        <span th:errors="*{desc}" class="error"></span>
+        <label th:for="note">Department</label>
+        <input class="form-control" th:field="*{note}" />
+        <span th:errors="*{note}" class="error"></span>
     </div>
     <div class="form-group">
         <label th:for="vendor">Vendor</label>
@@ -49,5 +49,6 @@
     </div>
     <input type="submit" value="Add Product" />
 </form>
+
 </body>
 </html>

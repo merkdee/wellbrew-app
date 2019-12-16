@@ -1,5 +1,8 @@
 package com.wellbrew.wellbrewapp.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -7,56 +10,55 @@ import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@Entity
 public class Product {
 
+    @Id
+    @GeneratedValue
     private int productId;
-    private static int nextId = 1;
 
-    @NotBlank
+    @NotNull
+    @Size(min=1)
     private String name;
 
     private int amount;
 
-    @NotBlank
-    private String desc;
+    @NotNull
+    @Size(min=1)
+    private String note;
 
-    private BigDecimal price;
+    private int price;
 
     /*private boolean inStock;*/
     private String Vendor;
     /*private Set<Comment> comments = new LinkedHashSet<Comment>();*/
 
 
-    public Product(String name, int amount, String desc, BigDecimal price, String vendor) {
-        this();
+    public Product(String name, int amount, String note, int price, String vendor) {
         this.name = name;
         this.amount = amount;
-        this.desc = desc;
+        this.note = note;
         this.price = price;
         /*this.inStock = inStock;*/
         this.Vendor = vendor;
     }
 
-    public Product() {
-        productId = nextId;
-        nextId++;
-    }
-
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
+    public Product() { }
 
     public int getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+ /*   public void setProductId(int productId) {
         this.productId = productId;
+    }*/
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public int getAmount() {
@@ -75,11 +77,11 @@ public class Product {
         this.name = name;
     }
 
-    public BigDecimal getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

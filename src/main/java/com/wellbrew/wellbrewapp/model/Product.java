@@ -1,5 +1,8 @@
 package com.wellbrew.wellbrewapp.model;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -8,22 +11,29 @@ public class Product {
 
     private int productId;
     private static int nextId = 1;
+
+    @NotBlank
     private String name;
+
     private int amount;
+
+    @NotBlank
     private String desc;
+
     private BigDecimal price;
-    private boolean inStock;
+
+    /*private boolean inStock;*/
     private String Vendor;
     /*private Set<Comment> comments = new LinkedHashSet<Comment>();*/
 
 
-    public Product(String name, int amount, String desc, BigDecimal price, boolean inStock, String vendor) {
+    public Product(String name, int amount, String desc, BigDecimal price, String vendor) {
         this();
         this.name = name;
         this.amount = amount;
         this.desc = desc;
         this.price = price;
-        this.inStock = inStock;
+        /*this.inStock = inStock;*/
         this.Vendor = vendor;
     }
 
@@ -73,13 +83,13 @@ public class Product {
         this.price = price;
     }
 
-    public boolean isInStock() {
+   /* public boolean isInStock() {
         return inStock;
     }
 
     public void setInStock(boolean inStock) {
         this.inStock = inStock;
-    }
+    }*/
 
     public String getVendor() {
         return Vendor;

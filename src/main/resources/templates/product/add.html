@@ -17,33 +17,35 @@
 </nav>-->
 
 <!-- form to insert more products -->
-<form method="post" style="max-width:600px;">
+<form method="post" style="max-width:600px;" th:object="${product}">
     <div class="form-group">
-        <label for="name-field">Product Name</label>
-        <input class="form-control" id="name-field" type="text" name="name" />
+        <label th:for="name">Product Name</label>
+        <input class="form-control" th:field="*{name}" />
+        <span th:errors="*{name}" class="error"></span>
     </div>
     <div class="form-group">
-        <label for="price-field">Product Price</label>
-        <input class="form-control" id="price-field" type="text" name="price" />
+        <label th:for="price">Product Price</label>
+        <input class="form-control" th:field="*{price}" />
     </div>
     <div class="form-group">
-        <label for="amount-field">Product Quantity</label>
-        <input class="form-control" id="amount-field" type="number" name="amount" />
+        <label th:for="amount">Product Quantity</label>
+        <input class="form-control" th:field="*{amount}" />
     </div>
-    <div class="form-group">
+    <!--<div class="form-group">
         <label>In-stock?</label>
         <label for="stocky-field">Yes?</label>
         <input class="form-control" id="stocky-field" type="radio" name="inStock" />
         <label for="stockn-field">No?</label>
         <input class="form-control" id="stockn-field" type="radio" name="inStock2" />
+    </div>-->
+    <div class="form-group">
+        <label th:for="desc">Department</label>
+        <input class="form-control" th:field="*{desc}" />
+        <span th:errors="*{desc}" class="error"></span>
     </div>
     <div class="form-group">
-        <label for="desc-field">Department</label>
-        <input class="form-control" id="desc-field" type="text" name="desc" />
-    </div>
-    <div class="form-group">
-        <label for="vendor-field">Vendor</label>
-        <input class="form-control" id="vendor-field" type="text" name="vendor" />
+        <label th:for="vendor">Vendor</label>
+        <input class="form-control" th:field="*{vendor}" />
     </div>
     <input type="submit" value="Add Product" />
 </form>

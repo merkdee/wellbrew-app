@@ -4,10 +4,13 @@ import com.wellbrew.wellbrewapp.model.Product;
 import com.wellbrew.wellbrewapp.model.ProductData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,16 +43,25 @@ public class ProductController {
     public String displayAddProductForm(Model model) {
 
         model.addAttribute("title","Add Product");
+        model.addAttribute(new Product());
         return"product/add";
     }
 
     // Request path: product/add
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddProductForm(@RequestParam String name, @RequestParam int amount, @RequestParam String desc, @RequestParam BigDecimal price, @RequestParam boolean inStock, @RequestParam String vendor ){
+    public String processAddProductForm(@ModelAttribute @Valid Product newProduct, Errors errors, Model model) {
+
+        // validating errors
+        if (errors.hasErrors()) {
+            model.addAttribute("title","Add Product");
+            return"product/add";
+
+        }
 
         // wrapping data into java object to be stored
-        // using functions from cheese data
-        Product newProduct = new Product(name,amount, desc, price, inStock, vendor);
+        // using functions from product data
+        //eliminated due to using the model to create the data object
+       /* Product newProduct = new Product(name,amount, desc, price, inStock, vendor);*/
         ProductData.add(newProduct);
         //previously added products listed within array WHEN INSIDE index function
         /*products.add(productName);*/

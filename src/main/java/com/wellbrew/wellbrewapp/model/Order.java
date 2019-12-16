@@ -1,34 +1,48 @@
 package com.wellbrew.wellbrewapp.model;
 
+import com.wellbrew.wellbrewapp.model.Customer;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-import java.util.Calendar;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
+
+@Entity
 public class Order {
 
-    private int id;
+    @Id
+    @GeneratedValue
+    private int orderId;
 
 
     private Calendar date;
 
 
-    private Customer username;
+    private String username;
 
-
-    private Set<OrderLine> orderLines = new LinkedHashSet<OrderLine>();
+    @OneToMany
+    private ArrayList<Product> products = new ArrayList<>();
+    /*private Set<Product> products = new LinkedHashSet<Product>();*/
 
     public Order() {}
 
-    public Order(Calendar date, Customer username, Set<OrderLine> orderLines) {
+    public Order(Calendar date, String username, ArrayList products) {
         this.date = date;
         this.username = username;
-        this.orderLines = orderLines;
+        this.products = products;
+        /*this.orderLines = orderLines;*/
     }
 
-    public int getId() {
-        return id;
+
+    public int getOrderId() {
+        return orderId;
     }
+
+    /*public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }*/
 
     public Calendar getDate() {
         return date;
@@ -38,19 +52,27 @@ public class Order {
         this.date = date;
     }
 
-    public Customer getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUsername(Customer username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    public Set<OrderLine> getOrderLines() {
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
+    }
+
+    /* public Set<OrderLine> getOrderLines() {
         return orderLines;
     }
 
     public void setOrderLines(Set<OrderLine> orderLines) {
         this.orderLines = orderLines;
-    }
+    }*/
 }

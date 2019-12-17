@@ -1,13 +1,13 @@
 package com.wellbrew.wellbrewapp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -15,7 +15,7 @@ public class Product {
 
     @Id
     @GeneratedValue
-    private int productId;
+    private int Id;
 
     @NotNull
     @Size(min=1)
@@ -31,7 +31,13 @@ public class Product {
 
     /*private boolean inStock;*/
     private String Vendor;
+
+    /*@ManyToMany(mappedBy = "products")
+    private List<Orders> orders;*/
     /*private Set<Comment> comments = new LinkedHashSet<Comment>();*/
+
+    @ManyToOne
+    private Orders orders;
 
 
     public Product(String name, int amount, String note, int price, String vendor) {
@@ -45,8 +51,8 @@ public class Product {
 
     public Product() { }
 
-    public int getProductId() {
-        return productId;
+    public int getId() {
+        return Id;
     }
 
  /*   public void setProductId(int productId) {
@@ -108,4 +114,12 @@ public class Product {
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }*/
+
+    public Orders getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
+    }
 }

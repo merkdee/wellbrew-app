@@ -1,6 +1,8 @@
 package com.wellbrew.wellbrewapp.controller;
 
+import com.wellbrew.wellbrewapp.model.Orders;
 import com.wellbrew.wellbrewapp.model.Product;
+import com.wellbrew.wellbrewapp.model.data.OrderDao;
 import com.wellbrew.wellbrewapp.model.data.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("product")
@@ -26,7 +31,10 @@ public class ProductController {
     /*static ArrayList<Product> products = new ArrayList<>();*/
 
     @Autowired
-    private ProductDao  productDao;
+    ProductDao  productDao;
+
+    @Autowired
+    OrderDao orderDao;
 
     // request path: /product
     @RequestMapping(value = "")
@@ -44,33 +52,24 @@ public class ProductController {
 
         model.addAttribute("title","Add Product");
         model.addAttribute(new Product());
+        model.addAttribute("orders", orderDao.findAll());
         return"product/add";
     }
 
     // Request path: product/add
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddProductForm(@ModelAttribute @Valid Product newProduct, Errors errors, Model model) {
+    public String processAddProductForm(@ModelAttribute @Valid Product newProduct, Errors errors, @RequestParam(value = "id", required = false) int Id, Model model) {
 
         // validating errors
         if (errors.hasErrors()) {
             model.addAttribute("title","Add Product");
+            model.addAttribute("orders", orderDao.findAll());
             return"product/add";
 
         }
 
-        // wrapping data into java object to be stored
-        // using functions from product data
-        //eliminated due to using the model to create the data object
-       /* Product newProduct = new Product(name,amount, desc, price, inStock, vendor);*/
-        /*ProductData.add(newProduct);*/
-
-        //previously added products listed within array WHEN INSIDE index function
-        /*products.add(productName);*/
-
-        //saving product
-        /*products.put(productName, productDesc);*/
-
-        //redirect to product/
+        Orders order = (Orders) orderDao.findAllById(Collections.singleton(Id));
+        newProduct.setOrders(order);
         productDao.save(new Product());
         return "redirect:";
     }
@@ -85,13 +84,28 @@ public class ProductController {
 
     //Request path: product/remove
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveProductForm(@RequestParam int[] productIds) {
+    public String processRemoveProductForm(@RequestParam int[] ids) {
 
-        for (int productId : productIds) {
+        //remove since the order dao is now autowired into product list
+        /*for (int productId : productIds) {
             productDao.deleteById(productId);
+        }*/
+        for (int id : ids) {
+            productDao.deleteById(id);
         }
 
         return "redirect:";
+    }
+
+    @RequestMapping(value = "order", method = RequestMethod.GET)
+    public String order (Model model, @RequestParam int id) {
+
+        Optional<Orders> orders;
+        orders = orderDao.findById(id);
+        List<Product> products = (List<Product>) orders.get();
+        model.addAttribute("products", products);
+        model.addAttribute("title", "Products are listed in Order: " + orders.get());
+        return "product/index";
     }
 
 }

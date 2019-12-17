@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public class ProductData {
 
-    static ArrayList<Product> products = new ArrayList<>();
+    // data class no longer in use  due to database connectivity
+/*    static ArrayList<Product> products = new ArrayList<>();
 
     //getAll
     public static ArrayList<Product> getAll(){
@@ -35,5 +36,5 @@ public class ProductData {
         }
 
         return theProduct;
-    }
+    }*/
 }

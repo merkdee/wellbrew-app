@@ -1,21 +1,17 @@
 package com.wellbrew.wellbrewapp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-
+@Entity
 public class Customer {
 
-
-    private int customerId;
-
-    private static int nextId = 1;
+    @Id
+    @GeneratedValue
+    private int Id;
 
     @NotNull
     @Size(min=3, max=12)
@@ -30,20 +26,15 @@ public class Customer {
 
 
     public Customer(String username, String password) {
-        this();
         this.username = username;
         this.password = password;
     }
 
-    public Customer() {
-        customerId = nextId;
-        nextId++;
-    }
+    public Customer() { }
 
-    public int getCustomerId() {
-        return customerId;
+    public int getId() {
+        return Id;
     }
-
 
     public String getUsername() {
         return username;
@@ -68,5 +59,6 @@ public class Customer {
     public void setVerifyPassword(String verifyPassword) {
         this.verifyPassword = verifyPassword;
     }
+
 }
 

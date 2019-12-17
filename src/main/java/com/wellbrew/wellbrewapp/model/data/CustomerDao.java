@@ -1,6 +1,6 @@
 package com.wellbrew.wellbrewapp.model.data;
 
-import com.wellbrew.wellbrewapp.model.Product;
+import com.wellbrew.wellbrewapp.model.Customer;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,17 +9,17 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface ProductDao extends CrudRepository<Product, Integer> {
+public interface CustomerDao extends CrudRepository<Customer, Integer> {
 
     @Override
-    <S extends Product> S save(S entity);
+    <S extends Customer> S save(S entity);
 
     @Override
     void deleteById(Integer integer);
 
     @Override
-    Iterable<Product> findAll();
+    Iterable<Customer> findAll();
 
     @Override
-    Optional<Product> findById(Integer integer);
+    Optional<Customer> findById(Integer integer);
 }

@@ -1,8 +1,10 @@
 package com.wellbrew.wellbrewapp.controller;
 
 import com.wellbrew.wellbrewapp.model.Customer;
-import com.wellbrew.wellbrewapp.model.CustomerData;
-import com.wellbrew.wellbrewapp.model.ProductData;
+import com.wellbrew.wellbrewapp.model.data.CustomerDao;
+import com.wellbrew.wellbrewapp.model.data.OrderDao;
+import com.wellbrew.wellbrewapp.model.data.ProductDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -15,11 +17,22 @@ import javax.validation.Valid;
 @Controller
 public class HomeController {
 
+    @Autowired
+
+    CustomerDao customerDao;
+
+    @Autowired
+    ProductDao productDao;
+
+    @Autowired
+    OrderDao orderDao;
+
     //Request path: /
     @RequestMapping(value = "")
     public String index(Model model) {
 
-        /*model.addAttribute("products", ProductData.getAll());*/
+        model.addAttribute("products", productDao.findAll());
+        model.addAttribute("orders", orderDao.findAll());
         model.addAttribute("title", "Products");
 
         return "home/index";
@@ -45,7 +58,7 @@ public class HomeController {
 
         }
 
-        CustomerData.add(newCustomer);
+        customerDao.save(new Customer());
         return "product/index";
     }
 

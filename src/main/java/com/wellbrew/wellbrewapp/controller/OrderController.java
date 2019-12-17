@@ -1,6 +1,6 @@
 package com.wellbrew.wellbrewapp.controller;
 
-import com.wellbrew.wellbrewapp.model.Order;
+import com.wellbrew.wellbrewapp.model.Orders;
 import com.wellbrew.wellbrewapp.model.data.OrderDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,13 +42,13 @@ public class OrderController {
     public String displayAddProductForm(Model model) {
 
         model.addAttribute("title","Add Order");
-        model.addAttribute(new Order());
+        model.addAttribute(new Orders());
         return"order/add";
     }
 
     // Request path: product/add
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddProductForm(@ModelAttribute @Valid Order newOrder, Errors errors, Model model) {
+    public String processAddProductForm(@ModelAttribute @Valid Orders newOrders, Errors errors, Model model) {
 
         // validating errors
         if (errors.hasErrors()) {
@@ -57,7 +57,7 @@ public class OrderController {
 
         }
 
-        orderDao.save(new Order());
+        orderDao.save(new Orders());
         return "redirect:";
     }
 

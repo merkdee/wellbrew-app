@@ -583,28 +583,31 @@
         <br>
         <p>Enter Products, or Items to be added to inventory. Once added they can be viewed or added to order lists.</p>
         <br>
-        <form method="post" style="max-width:600px;" th:object="${product}" th:action="@{/add.html}">
+        <form method="post" th:object="${product}" th:action="@{/ProductMain/add}" style="max-width:600px;">
             <div class="form-group">
                 <label th:for="name">Product Name</label>
-                <input class="form-control" th:type="name" th:field="*{name}" />
+                <input class="form-control" placeholder="Item name" type="name" th:field="*{name}" name="name" required/>
                 <span th:errors="*{name}" class="error"></span>
             </div>
             <div class="form-group">
                 <label th:for="price">Product Price</label>
-                <input class="form-control" th:type="price" th:field="*{price}" />
+                <input class="form-control" placeholder="Item Price" type="price" th:field="*{price}" name="price"/>
+                <span th:errors="*{price}" class="error"></span>
             </div>
             <div class="form-group">
                 <label th:for="amount">Product Quantity</label>
-                <input class="form-control" th:type="amount" th:field="*{amount}" />
+                <input class="form-control" placeholder="Quantity" type="amount" th:field="*{amount}" name="amount"/>
+                <span th:errors="*{amount}" class="error"></span>
             </div>
             <div class="form-group">
                 <label th:for="note">Department</label>
-                <input class="form-control" th:type="note" th:field="*{note}" />
+                <input class="form-control" placeholder="department" type="note" th:field="*{note}" name="note"/>
                 <span th:errors="*{note}" class="error"></span>
             </div>
             <div class="form-group">
                 <label th:for="vendor">Vendor</label>
-                <input class="form-control"  th:type="vendor" th:field="*{vendor}" />
+                <input class="form-control" placeholder="vendor name" type="vendor" th:field="*{vendor}" name="vendor"/>
+                <span th:errors="*{vendor}" class="error"></span>
             </div>
             <br>
             <input type="submit" value="Add Product" />

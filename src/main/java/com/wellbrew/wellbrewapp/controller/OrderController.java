@@ -25,7 +25,7 @@ public class OrderController {
 
     // request path: /order
     @RequestMapping(value = "index")
-    public String index(Model model, @RequestParam(defaultValue = "0")int id) {
+    public @ResponseBody String index(Model model, @RequestParam(defaultValue = "0")int id) {
 
         model.addAttribute("products", orderDao.findAll());
         model.addAttribute("title", "Products");
@@ -35,7 +35,7 @@ public class OrderController {
 
     // Request path: /order/add
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String displayAddProductForm(Model model) {
+    public @ResponseBody String displayAddProductForm(Model model) {
 
         model.addAttribute(new Orders());
         model.addAttribute("title","Add Order");
@@ -44,7 +44,7 @@ public class OrderController {
 
     // Request path: product/add
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddProductForm(@ModelAttribute @Valid Orders newOrders, Errors errors, Model model) {
+    public @ResponseBody String processAddProductForm(@ModelAttribute @Valid Orders newOrders, Errors errors, Model model) {
 
         // validating errors
         if (errors.hasErrors()) {
@@ -59,7 +59,7 @@ public class OrderController {
 
     //Request path: product/remove
     @RequestMapping(value = "remove", method = RequestMethod.GET)
-    public String displayRemoveProductForm(Model model) {
+    public @ResponseBody String displayRemoveProductForm(Model model) {
         model.addAttribute("products", orderDao.findAll());
         model.addAttribute("title","Remove Product");
         return "OrderMain/remove";
@@ -67,7 +67,7 @@ public class OrderController {
 
     //Request path: order/remove
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveProductForm(@RequestParam int[] orderIds) {
+    public @ResponseBody String processRemoveProductForm(@RequestParam int[] orderIds) {
 
         for (int orderId : orderIds) {
             orderDao.deleteById(orderId);

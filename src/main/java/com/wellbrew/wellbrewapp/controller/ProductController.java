@@ -49,26 +49,25 @@ public class ProductController {
 
         model.addAttribute("title","Add Product");
         model.addAttribute(new Product());
-        model.addAttribute("orders", orderDao.findAll());
+
         return"ProductMain/add";
     }
 
     // Request path: product/add
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public @ResponseBody String processAddProductForm(@ModelAttribute @Valid Product newProduct, Errors errors, @RequestParam(value = "id", required = false) int Id, Model model) {
+    public @ResponseBody String processAddProductForm(@ModelAttribute @Valid Product product,Errors errors, Model model) {
+
+        model.addAttribute(product);
 
         // validating errors
         if (errors.hasErrors()) {
-            model.addAttribute("title","Add Product");
-            model.addAttribute("orders", orderDao.findAll());
             return"ProductMain/add";
 
         }
 
-        Orders order = (Orders) orderDao.findAllById(Collections.singleton(Id));
-        newProduct.setOrders(order);
-        productDao.save(new Product());
-        return "redirect:";
+        productDao.save(product);
+
+        return "ProductMain/index";
     }
 
     //Request path: product/remove

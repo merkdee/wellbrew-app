@@ -13,9 +13,9 @@ public interface OrderDao extends CrudRepository<Orders, Integer> {
     @Override
     void deleteById(Integer integer);
 
-    @Override
-    Optional<Orders> findById(Integer integer);
 
     @Override
     Iterable<Orders> findAll();
+
+
 }

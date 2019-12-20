@@ -1,6 +1,8 @@
 package com.wellbrew.wellbrewapp.controller;
 
 import com.wellbrew.wellbrewapp.model.Customer;
+import com.wellbrew.wellbrewapp.model.Product;
+import com.wellbrew.wellbrewapp.model.Orders;
 import com.wellbrew.wellbrewapp.model.data.CustomerDao;
 import com.wellbrew.wellbrewapp.model.data.OrderDao;
 import com.wellbrew.wellbrewapp.model.data.ProductDao;
@@ -35,7 +37,7 @@ public class HomeController {
         model.addAttribute("orders", orderDao.findAll());
         model.addAttribute("title", "Products");
 
-        return "home/index";
+        return "HomeMain/index";
     }
 
     // Request path: /register
@@ -44,7 +46,7 @@ public class HomeController {
 
         model.addAttribute("title", "Register");
         model.addAttribute(new Customer());
-        return "home/register";
+        return "HomeMain/register";
     }
 
     // Request path: /register
@@ -54,12 +56,12 @@ public class HomeController {
         // validating errors for user registration
         if (errors.hasErrors()) {
             model.addAttribute("title", "Register");
-            return "home/register";
+            return "HomeMain/register";
 
         }
 
         customerDao.save(new Customer());
-        return "product/index";
+        return "ProductMain/index";
     }
 
     // Request path: /login
@@ -68,7 +70,7 @@ public class HomeController {
 
         model.addAttribute("title", "Log In");
         model.addAttribute(new Customer());
-        return "home/login";
+        return "HomeMain/login";
     }
 
     // Request path: /login
@@ -78,10 +80,25 @@ public class HomeController {
         // validating errors for user login
         if (errors.hasErrors()) {
             model.addAttribute("title", "Log In");
-            return "home/login";
+            return "HomeMain/login";
 
         }
 
-        return "product/index";
+        return "ProductMain/index";
+    }
+
+    //Request path: /search
+    @RequestMapping(value = "search", method = RequestMethod.POST)
+    public String processUserSearchForm(@ModelAttribute Product product, Orders orders, Errors errors, Model model) {
+
+        //validating errors for search
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "Search Results");
+            return "HomeMain/index";
+
+        }
+        model.addAttribute("products", productDao.findAll());
+        model.addAttribute("orders", orderDao.findAll());
+        return "HomeMain/search";
     }
 }

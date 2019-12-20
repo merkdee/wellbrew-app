@@ -2,6 +2,7 @@ package com.wellbrew.wellbrewapp.controller;
 
 import com.wellbrew.wellbrewapp.model.Orders;
 import com.wellbrew.wellbrewapp.model.data.OrderDao;
+import com.wellbrew.wellbrewapp.model.data.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,7 @@ public class OrderController {
     @Autowired
     private OrderDao  orderDao;
 
+
     // request path: /order
     @RequestMapping(value = "")
     public String index(Model model) {
@@ -34,16 +36,16 @@ public class OrderController {
         model.addAttribute("products", orderDao.findAll());
         model.addAttribute("title", "Products");
 
-        return "order/index";
+        return "OrderMain/index";
     }
 
-    // Request path: /product/add
+    // Request path: /order/add
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddProductForm(Model model) {
 
         model.addAttribute("title","Add Order");
         model.addAttribute(new Orders());
-        return"order/add";
+        return"OrderMain/add";
     }
 
     // Request path: product/add
@@ -53,7 +55,7 @@ public class OrderController {
         // validating errors
         if (errors.hasErrors()) {
             model.addAttribute("title","Add Order");
-            return"order/add";
+            return"OrderMain/add";
 
         }
 
@@ -66,15 +68,16 @@ public class OrderController {
     public String displayRemoveProductForm(Model model) {
         model.addAttribute("products", orderDao.findAll());
         model.addAttribute("title","Remove Product");
-        return "order/remove";
+        return "OrderMain/remove";
     }
 
-    //Request path: product/remove
+    //Request path: order/remove
     @RequestMapping(value = "remove", method = RequestMethod.POST)
     public String processRemoveProductForm(@RequestParam int[] orderIds) {
 
         for (int orderId : orderIds) {
             orderDao.deleteById(orderId);
+            return "OrderMain/remove";
         }
 
         return "redirect:";

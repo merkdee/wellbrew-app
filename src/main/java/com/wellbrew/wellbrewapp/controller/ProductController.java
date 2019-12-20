@@ -41,9 +41,9 @@ public class ProductController {
     public String index(Model model) {
 
         model.addAttribute("products", productDao.findAll());
-        model.addAttribute("title", "Products");
+        model.addAttribute("title", "BowerBird");
 
-        return "product/index";
+        return "ProductMain/index";
     }
 
     // Request path: /product/add
@@ -53,7 +53,7 @@ public class ProductController {
         model.addAttribute("title","Add Product");
         model.addAttribute(new Product());
         model.addAttribute("orders", orderDao.findAll());
-        return"product/add";
+        return"ProductMain/add";
     }
 
     // Request path: product/add
@@ -64,7 +64,7 @@ public class ProductController {
         if (errors.hasErrors()) {
             model.addAttribute("title","Add Product");
             model.addAttribute("orders", orderDao.findAll());
-            return"product/add";
+            return"ProductMain/add";
 
         }
 
@@ -79,7 +79,7 @@ public class ProductController {
     public String displayRemoveProductForm(Model model) {
         model.addAttribute("products", productDao.findAll());
         model.addAttribute("title","Remove Product");
-        return "product/remove";
+        return "ProductMain/remove";
     }
 
     //Request path: product/remove
@@ -92,6 +92,7 @@ public class ProductController {
         }*/
         for (int id : ids) {
             productDao.deleteById(id);
+            return "ProductMain/remove";
         }
 
         return "redirect:";
@@ -105,7 +106,7 @@ public class ProductController {
         List<Product> products = (List<Product>) orders.get();
         model.addAttribute("products", products);
         model.addAttribute("title", "Products are listed in Order: " + orders.get());
-        return "product/index";
+        return "OrderMain/add";
     }
 
 }

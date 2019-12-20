@@ -2,11 +2,118 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8"/>
-    <title>Welcome to sWellBrew</title>
+    <title th:text="${title}">My Cheeses</title>
+
+    <link rel="stylesheet" th:href="@{/templates/home/styles.css}"/>
+
 </head>
 <body>
-    <h1>HomePage</h1>
+<header role="banner">
+    <h1>Admin Panel</h1>
+    <ul class="utilities">
+        <li class="users"><a href="#">My Account</a></li>
+        <li class="logout warn"><a href="">Log Out</a></li>
+    </ul>
+</header>
 
-    <p> insert homepage design here</p>
+<nav role="navigation">
+    <ul class="main">
+        <li class="dashboard"><a href="#">Dashboard</a></li>
+        <li class="write"><a href="#">Add Product</a></li>
+        <li class="edit"><a href="#">Remove Product</a></li>
+        <li class="comments"><a href="#">Add Order List</a></li>
+        <li class="users"><a href="#">Remove Order List</a></li>
+    </ul>
+</nav>
+
+<main role="main">
+    <section class="panel important">
+        <h2>Welcome to Your Dashboard </h2>
+        <ul>
+            <li>Important panel that will always be really wide Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+            <li>Aliquam tincidunt mauris eu risus.</li>
+            <li>Vestibulum auctor dapibus neque.</li>
+        </ul>
+    </section>
+    <section class="panel">
+        <h2>View Orders</h2>
+        <p th:unless="${orders} and ${orders.size()}">no orders available at this time</p>
+
+        <!-- loop through lists of products -->
+        <ul>
+            <li th:each="order : ${orders}" th:text="${order}"></li>
+        </ul>
+    </section>
+    <section class="panel">
+        <h2>Chart</h2>
+        <ul>
+            <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+            <li>Aliquam tincidunt mauris eu risus.</li>
+            <li>Vestibulum auctor dapibus neque.</li>
+        </ul>
+    </section>
+    <section class="panel important">
+        <h2>Enter A Product</h2>
+        <form method="post" style="max-width:600px;" th:object="${product}">
+            <div class="form-group">
+                <label th:for="name">Product Name</label>
+                <input class="form-control" th:field="*{name}" />
+                <span th:errors="*{name}" class="error"></span>
+            </div>
+            <div class="form-group">
+                <label th:for="price">Product Price</label>
+                <input class="form-control" th:field="*{price}" />
+            </div>
+            <div class="form-group">
+                <label th:for="amount">Product Quantity</label>
+                <input class="form-control" th:field="*{amount}" />
+            </div>
+            <div class="form-group">
+                <label th:for="note">Department</label>
+                <input class="form-control" th:field="*{note}" />
+                <span th:errors="*{note}" class="error"></span>
+            </div>
+            <div class="form-group">
+                <label th:for="vendor">Vendor</label>
+                <input class="form-control" th:field="*{vendor}" />
+            </div>
+            <input type="submit" value="Add Product" />
+        </form>
+    </section>
+    <section class="panel">
+        <h2>feedback</h2>
+        <div class="feedback">This is neutral feedback Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, praesentium. Libero perspiciatis quis aliquid iste quam dignissimos, accusamus temporibus ullam voluptatum, tempora pariatur, similique molestias blanditiis at sunt earum neque.</div>
+        <div class="feedback error">This is warning feedback
+            <ul>
+                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+                <li>Aliquam tincidunt mauris eu risus.</li>
+                <li>Vestibulum auctor dapibus neque.</li>
+            </ul>  </div>
+        <div class="feedback success">This is positive feedback</div>
+
+    </section>
+    <section class="panel ">
+        <h2>View All Products</h2>
+        <p th:unless="${products} and ${products.size()}">no products available at this time</p>
+        <table class="table">
+
+            <tr>
+
+                <th>Item Name</th>
+                <th>Amount Available</th>
+                <th>Department</th>
+            </tr>
+
+            <tr th:each="product : ${products}">
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.amount}"></td>
+                <td th:text="${product.note}"></td>
+            </tr>
+
+        </table>
+    </section>
+
+</main>
+<footer role="contentinfo">Easy Admin Style by Melissa Cabral</footer>
 </body>
 </html>

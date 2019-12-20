@@ -11,7 +11,7 @@ public class Customer {
 
     @Id
     @GeneratedValue
-    private int Id;
+    private Long Id;
 
     @NotNull
     @Size(min=3, max=12)
@@ -32,7 +32,7 @@ public class Customer {
 
     public Customer() { }
 
-    public int getId() {
+    public Long getId() {
         return Id;
     }
 

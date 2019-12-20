@@ -15,7 +15,7 @@ public class Product {
 
     @Id
     @GeneratedValue
-    private int Id;
+    private Long Id;
 
     @NotNull
     @Size(min=1)
@@ -51,7 +51,7 @@ public class Product {
 
     public Product() { }
 
-    public int getId() {
+    public Long getId() {
         return Id;
     }
 

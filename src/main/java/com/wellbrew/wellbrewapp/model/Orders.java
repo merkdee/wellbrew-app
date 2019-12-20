@@ -13,7 +13,7 @@ public class Orders {
 
     @Id
     @GeneratedValue
-    private int Id;
+    private Long Id;
 
 
     private Calendar date;
@@ -42,7 +42,7 @@ public class Orders {
     }
 
 
-    public int getId() {
+    public Long getId() {
         return Id;
     }
 

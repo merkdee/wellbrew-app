@@ -2,7 +2,7 @@ package com.wellbrew.wellbrewapp.model;
 
 public class Comment {
 
-    private int id;
+   /* private int id;
     private String text;
 
     public Comment() {}
@@ -23,5 +23,5 @@ public class Comment {
 
     public void setText(String text) {
         this.text = text;
-    }
+    }*/
 }

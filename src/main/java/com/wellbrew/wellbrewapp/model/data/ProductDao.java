@@ -11,15 +11,7 @@ import java.util.Optional;
 @Transactional
 public interface ProductDao extends CrudRepository<Product, Integer> {
 
-    @Override
-    <S extends Product> S save(S entity);
+    Product findByName(String name);
 
-    @Override
-    void deleteById(Integer integer);
-
-    @Override
-    Iterable<Product> findAll();
-
-    @Override
-    Optional<Product> findById(Integer integer);
+    Product findByVendor(String vendor);
 }

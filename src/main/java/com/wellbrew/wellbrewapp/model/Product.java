@@ -14,8 +14,8 @@ import java.util.Set;
 public class Product {
 
     @Id
-    @GeneratedValue
-    private Long Id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
     @NotNull
     @Size(min=1)
@@ -30,7 +30,7 @@ public class Product {
     private int price;
 
     /*private boolean inStock;*/
-    private String Vendor;
+    private String vendor;
 
     /*@ManyToMany(mappedBy = "products")
     private List<Orders> orders;*/
@@ -46,14 +46,12 @@ public class Product {
         this.note = note;
         this.price = price;
         /*this.inStock = inStock;*/
-        this.Vendor = vendor;
+        this.vendor = vendor;
     }
 
     public Product() { }
 
-    public Long getId() {
-        return Id;
-    }
+
 
  /*   public void setProductId(int productId) {
         this.productId = productId;
@@ -100,14 +98,14 @@ public class Product {
     }*/
 
     public String getVendor() {
-        return Vendor;
+        return vendor;
     }
 
     public void setVendor(String vendor) {
-        Vendor = vendor;
+        this.vendor = vendor;
     }
 
-/*    public Set<Comment> getComments() {
+    /*    public Set<Comment> getComments() {
         return comments;
     }
 

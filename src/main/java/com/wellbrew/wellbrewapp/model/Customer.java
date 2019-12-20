@@ -10,18 +10,19 @@ import javax.validation.constraints.Size;
 public class Customer {
 
     @Id
-    @GeneratedValue
-    private Long Id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
     @NotNull
     @Size(min=3, max=12)
     private String username;
 
-    @NotBlank
+    @NotNull
     @Size(min=6,max=15, message = "password must be between 6 and 15 characters")
     private String password;
 
-    @NotBlank
+    @Transient
+    @NotNull(message = "Passwords don't match.")
     private String verifyPassword;
 
 
@@ -31,10 +32,6 @@ public class Customer {
     }
 
     public Customer() { }
-
-    public Long getId() {
-        return Id;
-    }
 
     public String getUsername() {
         return username;
@@ -50,6 +47,7 @@ public class Customer {
 
     public void setPassword(String password) {
         this.password = password;
+        checkPassword();
     }
 
     public String getVerifyPassword() {
@@ -58,7 +56,13 @@ public class Customer {
 
     public void setVerifyPassword(String verifyPassword) {
         this.verifyPassword = verifyPassword;
+        checkPassword();
     }
 
+    private void checkPassword() {
+        if(password != null && verifyPassword != null && !password.equals(verifyPassword)) {
+            verifyPassword = null;
+        }
+    }
 }
 

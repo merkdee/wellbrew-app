@@ -2,19 +2,13 @@ package com.wellbrew.wellbrewapp.controller;
 
 import com.wellbrew.wellbrewapp.model.Orders;
 import com.wellbrew.wellbrewapp.model.data.OrderDao;
-import com.wellbrew.wellbrewapp.model.data.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 @Controller
 @RequestMapping("order")
@@ -30,8 +24,8 @@ public class OrderController {
 
 
     // request path: /order
-    @RequestMapping(value = "")
-    public String index(Model model) {
+    @RequestMapping(value = "index")
+    public String index(Model model, @RequestParam(defaultValue = "0")int id) {
 
         model.addAttribute("products", orderDao.findAll());
         model.addAttribute("title", "Products");
@@ -43,8 +37,8 @@ public class OrderController {
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddProductForm(Model model) {
 
-        model.addAttribute("title","Add Order");
         model.addAttribute(new Orders());
+        model.addAttribute("title","Add Order");
         return"OrderMain/add";
     }
 

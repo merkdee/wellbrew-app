@@ -12,8 +12,8 @@ import java.util.*;
 public class Orders {
 
     @Id
-    @GeneratedValue
-    private Long Id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
 
     private Calendar date;
@@ -34,17 +34,15 @@ public class Orders {
     @ManyToOne
     private Customer customer;
 
-    public Orders() {}
+
 
     public Orders(String orderName) {
         this.orderName = orderName;
 
     }
 
+    public Orders() {}
 
-    public Long getId() {
-        return Id;
-    }
 
     /*public void setOrderId(int orderId) {
         this.orderId = orderId;

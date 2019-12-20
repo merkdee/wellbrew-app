@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${title}">BowerBird</title>
+    <title>BowerBird - Add A Product</title>
     <meta charset="utf-8">
-    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <meta name="description" content="">
     <meta name="author" content=""><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/css/dataTables.bootstrap4.css'>
@@ -17,48 +17,54 @@
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="index.html">BowerBird</a>
+    <a class="navbar-brand" href="/home">BowerBird</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="/home">
                     <i class="fa fa-fw fa-dashboard"></i>
                     <span class="nav-link-text">Dashboard</span>
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Products">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProductPages" data-parent="#exampleAccordion">
                     <i class="fa fa-fw fa-file"></i>
                     <span class="nav-link-text">Products</span>
                 </a>
                 <ul class="sidenav-second-level collapse" id="collapseProductPages">
                     <li>
-                        <a href="/product/remove">Add Product</a>
+                        <a href="/product/index">View Products</a>
+                    </li>
+                    <li>
+                        <a href="/product/add">Add Product</a>
                     </li>
                     <li>
                         <a href="/product/remove">Remove Products</a>
                     </li>
                 </ul>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Orders">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Order">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseOrderPages" data-parent="#exampleAccordion">
                     <i class="fa fa-fw fa-file"></i>
                     <span class="nav-link-text">Orders</span>
                 </a>
                 <ul class="sidenav-second-level collapse" id="collapseOrderPages">
                     <li>
-                        <a href="/order/add">Create Order</a>
+                        <a href="/order/index">View Order Lists</a>
                     </li>
                     <li>
-                        <a href="/order/remove">Remove Order</a>
+                        <a href="/order/add">Create Order Lists</a>
+                    </li>
+                    <li>
+                        <a href="/order/remove">Remove Order List</a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Search">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="/search">
                     <i class="fa fa-fw fa-table"></i>
                     <span class="nav-link-text">Search</span>
                 </a>
@@ -108,12 +114,12 @@
         <ul class="navbar-nav sidenav-toggler">
             <li class="nav-item">
                 <a class="nav-link text-center" id="sidenavToggler">
-                    <i class="fa fa-fw fa-angle-left"></i>
+                    <h6><strong>Asset Managment. Simple.</strong></h6>
                 </a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown">
+            <!--<li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-fw fa-envelope"></i>
                     <span class="d-lg-none">Messages
@@ -189,7 +195,7 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item small" href="#">View all alerts</a>
                 </div>
-            </li>
+            </li>-->
             <li class="nav-item">
                 <form class="form-inline my-2 my-lg-0 mr-lg-2">
                     <div class="input-group">
@@ -219,7 +225,7 @@
             <li class="breadcrumb-item active">Add Product</li>
         </ol>
         <!-- Icon Cards-->
-        <div class="row">
+        <!--<div class="row">
             <div class="col-xl-3 col-sm-6 mb-3">
                 <div class="card text-white bg-primary o-hidden h-100">
                     <div class="card-body">
@@ -284,7 +290,7 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!-- Area Chart Example-->
         <!--     <div class="card mb-3">
                <div class="card-header">
@@ -577,35 +583,28 @@
         <br>
         <p>Enter Products, or Items to be added to inventory. Once added they can be viewed or added to order lists.</p>
         <br>
-        <form method="post" style="max-width:600px;" th:object="${product}">
+        <form method="post" style="max-width:600px;" th:object="${product}" th:action="@{/add.html}">
             <div class="form-group">
                 <label th:for="name">Product Name</label>
-                <input class="form-control" th:field="*{name}" />
+                <input class="form-control" th:type="name" th:field="*{name}" />
                 <span th:errors="*{name}" class="error"></span>
             </div>
             <div class="form-group">
                 <label th:for="price">Product Price</label>
-                <input class="form-control" th:field="*{price}" />
+                <input class="form-control" th:type="price" th:field="*{price}" />
             </div>
             <div class="form-group">
                 <label th:for="amount">Product Quantity</label>
-                <input class="form-control" th:field="*{amount}" />
+                <input class="form-control" th:type="amount" th:field="*{amount}" />
             </div>
-            <!--<div class="form-group">
-                <label>In-stock?</label>
-                <label for="stocky-field">Yes?</label>
-                <input class="form-control" id="stocky-field" type="radio" name="inStock" />
-                <label for="stockn-field">No?</label>
-                <input class="form-control" id="stockn-field" type="radio" name="inStock2" />
-            </div>-->
             <div class="form-group">
                 <label th:for="note">Department</label>
-                <input class="form-control" th:field="*{note}" />
+                <input class="form-control" th:type="note" th:field="*{note}" />
                 <span th:errors="*{note}" class="error"></span>
             </div>
             <div class="form-group">
                 <label th:for="vendor">Vendor</label>
-                <input class="form-control" th:field="*{vendor}" />
+                <input class="form-control"  th:type="vendor" th:field="*{vendor}" />
             </div>
             <br>
             <input type="submit" value="Add Product" />

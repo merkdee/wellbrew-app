@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class OrderLine {
 
-    private Product product;
+   /* private Product product;
     private int amount;
     private BigDecimal purchasePrice;
 
@@ -38,5 +38,5 @@ public class OrderLine {
 
     public void setPurchasePrice(BigDecimal purchasePrice) {
         this.purchasePrice = purchasePrice;
-    }
+    }*/
 }

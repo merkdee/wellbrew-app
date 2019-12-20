@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collections;
@@ -37,7 +34,7 @@ public class ProductController {
     OrderDao orderDao;
 
     // request path: /product
-    @RequestMapping(value = "")
+    @RequestMapping(value = "index")
     public String index(Model model) {
 
         model.addAttribute("products", productDao.findAll());
@@ -58,7 +55,7 @@ public class ProductController {
 
     // Request path: product/add
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddProductForm(@ModelAttribute @Valid Product newProduct, Errors errors, @RequestParam(value = "id", required = false) int Id, Model model) {
+    public @ResponseBody String processAddProductForm(@ModelAttribute @Valid Product newProduct, Errors errors, @RequestParam(value = "id", required = false) int Id, Model model) {
 
         // validating errors
         if (errors.hasErrors()) {
@@ -84,7 +81,7 @@ public class ProductController {
 
     //Request path: product/remove
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveProductForm(@RequestParam int[] ids) {
+    public @ResponseBody String processRemoveProductForm(@RequestParam int[] ids) {
 
         //remove since the order dao is now autowired into product list
         /*for (int productId : productIds) {
@@ -99,7 +96,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "order", method = RequestMethod.GET)
-    public String order (Model model, @RequestParam int id) {
+    public @ResponseBody String order (Model model, @RequestParam int id) {
 
         Optional<Orders> orders;
         orders = orderDao.findById(id);

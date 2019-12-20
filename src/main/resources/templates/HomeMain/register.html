@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">BowerBird</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content=""><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/css/dataTables.bootstrap4.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <a class="navbar-brand" href="index.html">BowerBird</a>
+        </ul>
+        <ul class="navbar-nav sidenav-toggler">
+            <li class="nav-item">
+                <a class="nav-link text-center" id="sidenavToggler">
+                    <i class="fa fa-fw fa-angle-left"></i>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <!--<a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-fw fa-envelope"></i>
+                    <span class="d-lg-none">
+              <span class="badge badge-pill badge-primary"></span>
+            </span>
+                    <span class="indicator text-primary d-none d-lg-block">
+              <i class="fa fa-fw fa-circle"></i>
+            </span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="messagesDropdown">
+                    <h6 class="dropdown-header"></h6>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+                        <strong></strong>
+                        <span class="small float-right text-muted"></span>
+                        <div class="dropdown-message small"></div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+                        <strong>Jane Smith</strong>
+                        <span class="small float-right text-muted"></span>
+                        <div class="dropdown-message small"></div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+                        <strong></strong>
+                        <span class="small float-right text-muted"></span>
+                        <div class="dropdown-message small"></div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item small" href="#"></a>
+                </div>-->
+            </li>
+            <li class="nav-item dropdown">
+                <!--<a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-fw fa-bell"></i>
+                    <span class="d-lg-none">
+              <span class="badge badge-pill badge-warning"></span>
+            </span>
+                    <span class="indicator text-warning d-none d-lg-block">
+              <i class="fa fa-fw fa-circle"></i>
+            </span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="alertsDropdown">
+                    <h6 class="dropdown-header"></h6>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+              <span class="text-success">
+                <strong>
+                  <i class="fa fa-long-arrow-up fa-fw"></i></strong>
+              </span>
+                        <span class="small float-right text-muted"></span>
+                        <div class="dropdown-message small"></div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+              <span class="text-danger">
+                <strong>
+                  <i class="fa fa-long-arrow-down fa-fw"></i></strong>
+              </span>
+                        <span class="small float-right text-muted"></span>
+                        <div class="dropdown-message small"></div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+              <span class="text-success">
+                <strong>
+                  <i class="fa fa-long-arrow-up fa-fw"></i></strong>
+              </span>
+                        <span class="small float-right text-muted"></span>
+                        <div class="dropdown-message small"></div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item small" href="#"></a>
+                </div>-->
+            </li>
+            <li class="nav-item">
+                <!--<form class="form-inline my-2 my-lg-0 mr-lg-2">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Search for...">
+                        <span class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+                    </div>
+                </form>-->
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#registerModal">
+                    <i class="fa fa-fw fa-sign-in"></i>Log In</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<br>
+<div class="content-wrapper">
+<div class="container-fluid">
+    <br>
+    <h2>Create An Account!</h2>
+    <br>
+    <form method="post" style="max-width:600px;" th:object="${customer}">
+        <div class="form-group">
+            <label th:for="username">Username</label>
+            <input class="form-control" th:field="*{username}" />
+            <span th:errors="*{username}" class="error"></span>
+        </div>
+        <div class="form-group">
+            <label th:for="password">Password</label>
+            <input class="form-control" th:type="password" th:field="*{password}" />
+            <span th:errors="*{password}" class="error"></span>
+        </div>
+
+        <div class="form-group">
+            <label th:for="verifyPassword">Verify Password</label>
+            <input class="form-control" th:type="password" th:field="*{verifyPassword}" />
+            <span th:errors="*{verifyPassword}" class="error"></span>
+        </div>
+
+        <input type="submit" value="Register" />
+    </form>
+    <br>
+</div>
+<footer class="sticky-footer">
+    <div class="container">
+        <div class="text-center">
+            <small>Copyright © BowerBird 2019</small>
+        </div>
+    </div>
+</footer>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+</a>
+<!-- Logout Modal-->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="UserRegisterLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="UserRegisterLabel">Already have an account?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Log In" to sign in.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="/login">Log In</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<!-- partial -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.5/umd/popper.js'></script>
+<script src='https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/dataTables.bootstrap4.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>

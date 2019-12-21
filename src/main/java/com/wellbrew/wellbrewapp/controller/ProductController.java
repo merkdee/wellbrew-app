@@ -81,20 +81,13 @@ public class ProductController {
 
     //Request path: product/remove
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveProductForm(@ModelAttribute Model model, Product product, int id) {
+    public String processRemoveProductForm(@ModelAttribute @RequestParam int id, Model model) {
 
-
+        productDao.findAll();
+        productDao.deleteById(id);
         model.addAttribute("products", productDao.findAll());
 
-        /*// validating errors
-        if (errors.hasErrors()) {
-            return"ProductMain/remove";
-
-        }*/
-
-        productDao.deleteById(id);
-
-        return "ProductMain/index";
+        return "ProductMain/remove";
     }
 
     @RequestMapping(value = "order", method = RequestMethod.GET)

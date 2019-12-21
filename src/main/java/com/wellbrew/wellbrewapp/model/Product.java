@@ -51,9 +51,11 @@ public class Product {
 
     public Product() { }
 
+    public int getId() {
+        return id;
+    }
 
-
- /*   public void setProductId(int productId) {
+    /*   public void setProductId(int productId) {
         this.productId = productId;
     }*/
 

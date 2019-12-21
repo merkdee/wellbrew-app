@@ -169,7 +169,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-            <i class="fa fa-fw fa-sign-in"></i>Log In</a>
+            <i class="fa fa-fw fa-sign-out"></i>Log Out</a>
         </li>
       </ul>
     </div>
@@ -551,8 +551,6 @@
                   <th>Item Name</th>
                   <th>Department</th>
                   <th>In Stock</th>
-                  <th>Price</th>
-                  <th>Vendor</th>
                 </tr>
               </thead>
               <tfoot>
@@ -560,15 +558,13 @@
                   <th>Item Name</th>
                   <th>Department</th>
                   <th>In Stock</th>
-                  <th>Price</th>
-                  <th>Vendor</th>
                 </tr>
               </tfoot>
               <tbody>
               <tr th:each="product : ${products}">
                 <td th:text="${product.name}"></td>
-                <td th:text="${product.amount}"></td>
                 <td th:text="${product.note}"></td>
+                <td th:text="${product.amount}"></td>
               </tr>
               </tbody>
             </table>

@@ -210,7 +210,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fa fa-fw fa-sign-in"></i>Log In</a>
+                    <i class="fa fa-fw fa-sign-out"></i>Log Out</a>
             </li>
         </ul>
     </div>
@@ -583,30 +583,30 @@
         <br>
         <p>Enter Products, or Items to be added to inventory. Once added they can be viewed or added to order lists.</p>
         <br>
-        <form method="post" th:object="${product}" th:action="@{/ProductMain/add}" style="max-width:600px;">
+        <form method="post" style="max-width:600px;" th:object="${product}" th:action="@{/product/add}">
             <div class="form-group">
                 <label th:for="name">Product Name</label>
-                <input class="form-control" placeholder="Item name" type="name" th:field="*{name}" name="name" required/>
+                <input class="form-control" placeholder="Item name" th:type="text" th:field="*{name}" required/>
                 <span th:errors="*{name}" class="error"></span>
             </div>
             <div class="form-group">
                 <label th:for="price">Product Price</label>
-                <input class="form-control" placeholder="Item Price" type="price" th:field="*{price}" name="price"/>
+                <input class="form-control" placeholder="Item Price" th:type="text"  th:field="*{price}" />
                 <span th:errors="*{price}" class="error"></span>
             </div>
             <div class="form-group">
                 <label th:for="amount">Product Quantity</label>
-                <input class="form-control" placeholder="Quantity" type="amount" th:field="*{amount}" name="amount"/>
+                <input class="form-control" placeholder="Quantity" th:type="number" th:field="*{amount}" />
                 <span th:errors="*{amount}" class="error"></span>
             </div>
             <div class="form-group">
                 <label th:for="note">Department</label>
-                <input class="form-control" placeholder="department" type="note" th:field="*{note}" name="note"/>
+                <input class="form-control" placeholder="department" th:type="text" th:field="*{note}" />
                 <span th:errors="*{note}" class="error"></span>
             </div>
             <div class="form-group">
                 <label th:for="vendor">Vendor</label>
-                <input class="form-control" placeholder="vendor name" type="vendor" th:field="*{vendor}" name="vendor"/>
+                <input class="form-control" placeholder="vendor name" th:type="text" th:field="*{vendor}" />
                 <span th:errors="*{vendor}" class="error"></span>
             </div>
             <br>

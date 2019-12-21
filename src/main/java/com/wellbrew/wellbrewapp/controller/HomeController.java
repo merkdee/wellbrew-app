@@ -28,7 +28,7 @@ public class HomeController {
     OrderDao orderDao;
 
     //Request path: /
-    @RequestMapping(value = "home")
+    @RequestMapping(value = "home", method = RequestMethod.GET)
     public String index(Model model) {
 
         model.addAttribute("products", productDao.findAll());
@@ -49,8 +49,7 @@ public class HomeController {
 
     // Request path: /register
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public @ResponseBody
-    String processUserRegisterForm(@ModelAttribute @Valid Customer customer, Errors errors, Model model, String verifyPassword) {
+    public String processUserRegisterForm(@ModelAttribute @Valid Customer customer, Errors errors, Model model) {
 
         model.addAttribute(customer);
 
@@ -61,18 +60,18 @@ public class HomeController {
         }
 
         customerDao.save(customer);
-        return "redirect:";
+        return "HomeMain/index";
     }
 
     // Request path: /login
     @RequestMapping(value = "login", method = RequestMethod.GET)
-    public @ResponseBody String displayUserSignInForm() {
+    public String displayUserSignInForm() {
         return "HomeMain/login";
     }
 
     // Request path: /login
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public @ResponseBody String processUserSignInForm (@ModelAttribute(name = "Customer") Customer customer, Errors errors, Model model) {
+    public String processUserSignInForm (@ModelAttribute(name = "Customer") Customer customer, Errors errors, Model model) {
 
         String username = customer.getUsername();
         String password = customer.getPassword();
@@ -93,7 +92,7 @@ public class HomeController {
 
     //Request path: /search
     @RequestMapping(value = "search", method = RequestMethod.POST)
-    public @ResponseBody String processUserSearchForm(@ModelAttribute Product product, Orders orders, Errors errors, Model model) {
+    public String processUserSearchForm(@ModelAttribute Product product, Orders orders, Errors errors, Model model) {
 
         //validating errors for search
         if (errors.hasErrors()) {

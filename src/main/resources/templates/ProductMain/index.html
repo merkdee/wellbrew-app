@@ -591,27 +591,30 @@
                 <tr>
                   <th>Item Name</th>
                   <th>Department</th>
-                  <th>In Stock</th>
-                  <th>Price</th>
-                  <th>Vendor</th>
+                  <th>Stock Availability</th>
+                  <th>Vendor Price</th>
+                  <th>Vendor Name</th>
                 </tr>
               </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+              <td th:text="${product.name}"></td>
+              <td th:text="${product.note}"></td>
+              <td th:text="${product.amount}"></td>
+              <td th:text="${product.price}"></td>
+              <td th:text="${product.vendor}"></td>
+            </tr>
+            </tbody>
               <tfoot>
                 <tr>
                   <th>Item Name</th>
                   <th>Department</th>
-                  <th>In Stock</th>
-                  <th>Price</th>
-                  <th>Vendor</th>
+                  <th>Stock Availability</th>
+                  <th>Vendor Price</th>
+                  <th>Vendor Name</th>
                 </tr>
               </tfoot>
-              <tbody>
-              <tr th:each="product : ${products}">
-                <td th:text="${product.name}"></td>
-                <td th:text="${product.amount}"></td>
-                <td th:text="${product.note}"></td>
-              </tr>
-              </tbody>
+
             </table>
           </div>
         </div>

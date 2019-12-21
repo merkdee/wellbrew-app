@@ -11,7 +11,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +27,7 @@ public class ProductController {
     /*static ArrayList<Product> products = new ArrayList<>();*/
 
     @Autowired
-    ProductDao  productDao;
+    ProductDao productDao;
 
     @Autowired
     OrderDao orderDao;
@@ -55,7 +54,7 @@ public class ProductController {
 
     // Request path: product/add
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public @ResponseBody String processAddProductForm(@ModelAttribute @Valid Product product,Errors errors, Model model) {
+    public String processAddProductForm(@ModelAttribute @Valid Product product,Errors errors, Model model) {
 
         model.addAttribute(product);
 
@@ -66,36 +65,40 @@ public class ProductController {
         }
 
         productDao.save(product);
-
-        return "ProductMain/index";
+        model.addAttribute(new Product());
+        return "ProductMain/add";
     }
 
     //Request path: product/remove
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String displayRemoveProductForm(Model model) {
-        model.addAttribute("products", productDao.findAll());
+
         model.addAttribute("title","Remove Product");
+        model.addAttribute("products", productDao.findAll());
+
         return "ProductMain/remove";
     }
 
     //Request path: product/remove
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public @ResponseBody String processRemoveProductForm(@RequestParam int[] ids) {
+    public String processRemoveProductForm(@ModelAttribute Model model, Product product, int id) {
 
-        //remove since the order dao is now autowired into product list
-        /*for (int productId : productIds) {
-            productDao.deleteById(productId);
+
+        model.addAttribute("products", productDao.findAll());
+
+        /*// validating errors
+        if (errors.hasErrors()) {
+            return"ProductMain/remove";
+
         }*/
-        for (int id : ids) {
-            productDao.deleteById(id);
-            return "ProductMain/remove";
-        }
 
-        return "redirect:";
+        productDao.deleteById(id);
+
+        return "ProductMain/index";
     }
 
     @RequestMapping(value = "order", method = RequestMethod.GET)
-    public @ResponseBody String order (Model model, @RequestParam int id) {
+    public String order (Model model, @RequestParam int id) {
 
         Optional<Orders> orders;
         orders = orderDao.findById(id);

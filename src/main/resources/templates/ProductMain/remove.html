@@ -582,18 +582,18 @@
         <!-- Example DataTables Card-->
         <br>
         <p>Select a item, or product to remove from inventory. Please advise, once deleted the item cannot be recovered.
-            However, you can always make create it again <a href="/ProductMain/add">here</a> </p>
+            However, you can always make create it again <a href="/product/add">here</a> </p>
         <br>
-        <form method="post">
+        <form method="post" th:object="${product}" th:action="@{/product/remove}">
 
             <div th:each="product : ${products}" class="check-box">
-                <input type="checkbox" name="productIds" th:value="${product.productId}" th:id="${product.productId}"/>
-                <label th:for="${product.productId}" th:text="${product.name}"></label> |
+                <input type="checkbox" name="id" th:value="${product.id}" th:id="${product.id}"/>
+                <label th:for="${product.id}" th:text="${product.name}"></label> |
                 <!--  <label th:for="${product.productId}" th:text="${product.desc}"></label> |
                   <label th:for="${product.productId}" th:text="${product.amount}"></label>-->
                 <br />
             </div>
-
+            <br>
             <input type="submit" value="Remove Product" />
         </form>
 

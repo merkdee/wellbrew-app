@@ -127,7 +127,7 @@
         <br>
         <h2>Create An Account!</h2>
         <br>
-        <form method="post" style="max-width:600px;" th:object="${customer}" th:action="@{/register}">
+        <form method="post" style="max-width:600px;" th:object="${customer}" th:action="@{/home}">
             <div class="form-group">
                 <label th:for="username"><b>Username</b></label>
                 <input class="form-control" type="text" placeholder="Enter Username" th:field="*{username}" />

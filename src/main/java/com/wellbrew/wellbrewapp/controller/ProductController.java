@@ -90,7 +90,7 @@ public class ProductController {
         return "ProductMain/remove";
     }
 
-    @RequestMapping(value = "order", method = RequestMethod.GET)
+    /*@RequestMapping(value = "order", method = RequestMethod.GET)
     public String order (Model model, @RequestParam int id) {
 
         Optional<Orders> orders;
@@ -99,6 +99,6 @@ public class ProductController {
         model.addAttribute("products", products);
         model.addAttribute("title", "Products are listed in Order: " + orders.get());
         return "OrderMain/add";
-    }
+    }*/
 
 }

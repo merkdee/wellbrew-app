@@ -39,7 +39,7 @@ public class HomeController {
     }
 
     // Request path: /register
-    @RequestMapping(value = "register", method = RequestMethod.GET)
+    @RequestMapping(value = "register")
     public String displayUserRegisterForm(Model model) {
 
         model.addAttribute("title", "Register");

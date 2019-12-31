@@ -1,7 +1,11 @@
 package com.wellbrew.wellbrewapp.controller;
 
+import com.wellbrew.wellbrewapp.model.Customer;
 import com.wellbrew.wellbrewapp.model.Orders;
+import com.wellbrew.wellbrewapp.model.Product;
+import com.wellbrew.wellbrewapp.model.data.CustomerDao;
 import com.wellbrew.wellbrewapp.model.data.OrderDao;
+import com.wellbrew.wellbrewapp.model.data.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,12 +24,18 @@ public class OrderController {
     /*static HashMap<String, String> orders = new HashMap<>();*/
 
     @Autowired
-    private OrderDao  orderDao;
+    private OrderDao orderDao;
+
+    @Autowired
+    private ProductDao productDao;
+
+    @Autowired
+    private CustomerDao customerDao;
 
 
     // request path: /order
     @RequestMapping(value = "index")
-    public @ResponseBody String index(Model model, @RequestParam(defaultValue = "0")int id) {
+    public @ResponseBody String index(Model model) {
 
         model.addAttribute("products", orderDao.findAll());
         model.addAttribute("title", "Products");
@@ -35,46 +45,56 @@ public class OrderController {
 
     // Request path: /order/add
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public @ResponseBody String displayAddProductForm(Model model) {
+    public String displayAddProductForm(Model model) {
 
-        model.addAttribute(new Orders());
+        model.addAttribute("products", productDao.findAll());
         model.addAttribute("title","Add Order");
+        model.addAttribute(new Orders());
+
         return"OrderMain/add";
     }
 
-    // Request path: product/add
+    // Request path: /order/add
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public @ResponseBody String processAddProductForm(@ModelAttribute @Valid Orders newOrders, Errors errors, Model model) {
+    public String processAddProductForm(@ModelAttribute @Valid Orders orders, Product product, Errors errors, Model model) {
+
+        /*model.addAttribute("products", productDao.findAll());*/
+        model.addAttribute(product);
+        productDao.findAll();
+
+        model.addAttribute(orders);
 
         // validating errors
         if (errors.hasErrors()) {
-            model.addAttribute("title","Add Order");
             return"OrderMain/add";
 
         }
+        productDao.findAll();
+        orderDao.save(orders);
+        model.addAttribute(new Orders());
 
-        orderDao.save(new Orders());
-        return "redirect:";
+        return "OrderMain/add";
     }
 
-    //Request path: product/remove
+    //Request path: /order/remove
     @RequestMapping(value = "remove", method = RequestMethod.GET)
-    public @ResponseBody String displayRemoveProductForm(Model model) {
+    public String displayRemoveProductForm(Model model) {
+
         model.addAttribute("products", orderDao.findAll());
-        model.addAttribute("title","Remove Product");
+        model.addAttribute("title","Remove Order");
+
         return "OrderMain/remove";
     }
 
     //Request path: order/remove
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public @ResponseBody String processRemoveProductForm(@RequestParam int[] orderIds) {
+    public String processRemoveProductForm(@ModelAttribute @RequestParam int id, Model model) {
 
-        for (int orderId : orderIds) {
-            orderDao.deleteById(orderId);
-            return "OrderMain/remove";
-        }
+        orderDao.findAll();
+        orderDao.deleteById(id);
+        model.addAttribute("orders", orderDao.findAll());
 
-        return "redirect:";
+        return "OrderMain/remove";
     }
 
 }

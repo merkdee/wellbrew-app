@@ -5,6 +5,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class Customer {
@@ -25,10 +28,13 @@ public class Customer {
     @NotNull(message = "Passwords don't match.")
     private String verifyPassword;
 
+    @OneToMany(mappedBy = "customer")
+    private List<Orders> invoice = new ArrayList<>();
 
-    public Customer(String username, String password) {
+    public Customer(String username, String password, List<Orders> invoice) {
         this.username = username;
         this.password = password;
+        this.invoice = invoice;
     }
 
     public Customer() { }
@@ -59,10 +65,29 @@ public class Customer {
         checkPassword();
     }
 
+    public List<Orders> getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(List<Orders> invoice) {
+        this.invoice = invoice;
+    }
+
     private void checkPassword() {
         if(password != null && verifyPassword != null && !password.equals(verifyPassword)) {
             verifyPassword = null;
         }
     }
+
+    /*@OneToMany(mappedBy = "customer")
+    private Collection<Orders> orders;
+
+    public Collection<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Collection<Orders> orders) {
+        this.orders = orders;
+    }*/
 }
 

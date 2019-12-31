@@ -587,12 +587,12 @@
         <form method="post" style="max-width:600px" th:object="${orders}" th:action="@{/remove.html}">
 
             <div th:each="order : ${orders}" class="check-box">
-                <input type="checkbox" name="order" th:value="${order}" th:id="${order}"/>
-                <label th:for="${order}" th:text="${order}"></label>
+                <input type="checkbox" name="id" th:value="${order.id}" th:id="${order.id}"/>
+                <label th:for="${order.id}" th:text="${order.name}"></label>
                 <br />
             </div>
 
-            <input type="submit" value="Remove Order" />
+            <input type="submit" value="Remove Order List" />
         </form>
 
     </div>

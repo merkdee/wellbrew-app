@@ -36,7 +36,10 @@
                 </a>
                 <ul class="sidenav-second-level collapse" id="collapseProductPages">
                     <li>
-                        <a href="/product/remove">Add Product</a>
+                        <a href="/product/view">View Product</a>
+                    </li>
+                    <li>
+                        <a href="/product/add">Add Product</a>
                     </li>
                     <li>
                         <a href="/product/remove">Remove Products</a>
@@ -49,6 +52,9 @@
                     <span class="nav-link-text">Orders</span>
                 </a>
                 <ul class="sidenav-second-level collapse" id="collapseOrderPages">
+                    <li>
+                        <a href="/order/view">View Order</a>
+                    </li>
                     <li>
                         <a href="/order/add">Create Order</a>
                     </li>
@@ -511,25 +517,67 @@
         <br>
         <span>Products, or Items can be grouped and added to lists called Orders or Order Lists. This is helpful for assets that have a higher turnover rate or items by common vendors. </span>
         <br>
-        <form method="post" style="max-width:300px;" th:object="${orders}" th:action="@{/add.html}">
+        <form method="post" th:object="${orders}" th:action="@{/order/add.html}">
 
-            <div class="form-group">
-                <label th:for="name">Name</label>
-                <input class="form-control" type="text" th:field="*{name}" />
+            <div class="form-group" style="max-width:300px;">
+                <label th:for="date">Date</label>
+                <input class="form-control" placeholder="Date List Created" th:type="date" th:field="*{date}"/>
+                <span th:errors="*{date}" class="error"></span>
+            </div>
+            <br>
+            <div class="form-group" style="max-width:300px;">
+                <label th:for="name">Order Name</label>
+                <input class="form-control" placeholder="Order List Name" th:type="text" th:field="*{name}" required/>
                 <span th:errors="*{name}" class="error"></span>
             </div>
-            <p th:unless="${orders} and ${orders.size()}">no orders available at this time</p>
+            <br>
+           <!-- <div class="form-group" style="max-width:300px;">
+                <label th:for="products">Select Products</label>
+                <select th:field="*{products}">
+                    <option th:each="product : ${product}"
+                            th:value="${product.id}"
+                            th:text="${product.name}"></option>
+                </select>
+            </div>-->
+            <div class="form-group">
+                <label th:for="products">Select Products for Order List</label>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fa fa-table"></i> Current Inventory</div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <p th:unless="${products} and ${products.size()}">no products available at this time</p>
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>Item Name</th>
+                                <th>Department</th>
+                                <th>Stock Availability</th>
+                                <th>Vendor Price</th>
+                                <th>Vendor Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-            <div th:each="products : ${products}" class="check-box">
-                <br>
-                <input type="checkbox" name="product" th:value="${products}" th:id="${products}"/>
-                <br>
-                <label th:for="${product}" th:text="${product.name}"></label>
-                <br />
+                            <tr th:each="product : ${products}">
+                                <!--<input type="checkbox" name="id" th:value="${product.id}" th:id="${product.id}"/>-->
+                                <td><input type="checkbox" name="id" th:value="${product.id}" th:id="${product.id}" th:field="*{products}"/></td>
+                                <td th:text="${product.name}"></td>
+                                <td th:text="${product.note}"></td>
+                                <td th:text="${product.amount}"></td>
+                                <td th:text="${product.price}"></td>
+                                <td th:text="${product.vendor}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer small text-muted"></div>
+            </div>
             </div>
             <br>
-            <input type="submit" value="Create Order" />
-            <br>
+            <input type="submit" value="Create Order List" />
         </form>
     <br>
     </div>

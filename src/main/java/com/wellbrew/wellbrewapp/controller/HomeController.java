@@ -65,7 +65,10 @@ public class HomeController {
 
     // Request path: /login
     @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String displayUserSignInForm() {
+    public String displayUserSignInForm(Model model, Customer customer) {
+
+        model.addAttribute("title", "Register");
+        model.addAttribute(customer);
         return "HomeMain/login";
     }
 
@@ -87,7 +90,7 @@ public class HomeController {
 
         }
         model.addAttribute("invalidCredentials", true);
-            return "HomeMain/index";
+            return "HomeMain/login";
     }
 
     //Request path: /search

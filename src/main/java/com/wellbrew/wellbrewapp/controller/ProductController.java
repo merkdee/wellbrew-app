@@ -1,7 +1,9 @@
 package com.wellbrew.wellbrewapp.controller;
 
+import com.wellbrew.wellbrewapp.model.Customer;
 import com.wellbrew.wellbrewapp.model.Orders;
 import com.wellbrew.wellbrewapp.model.Product;
+import com.wellbrew.wellbrewapp.model.data.CustomerDao;
 import com.wellbrew.wellbrewapp.model.data.OrderDao;
 import com.wellbrew.wellbrewapp.model.data.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class ProductController {
     @Autowired
     OrderDao orderDao;
 
+    @Autowired
+    CustomerDao customerDao;
+
     // request path: /product
     @RequestMapping(value = "index")
     public String index(Model model) {
@@ -54,7 +59,9 @@ public class ProductController {
 
     // Request path: product/add
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddProductForm(@ModelAttribute @Valid Product product,Errors errors, Model model) {
+    public String processAddProductForm(@ModelAttribute @Valid Product product, Customer customer, Errors errors, Model model) {
+
+        String username = customer.getUsername();
 
         model.addAttribute(product);
 
@@ -63,7 +70,8 @@ public class ProductController {
             return"ProductMain/add";
 
         }
-
+        Customer cust = customerDao.findByUsername(username);
+        product.setCustomer(cust);
         productDao.save(product);
         model.addAttribute(new Product());
         return "ProductMain/add";

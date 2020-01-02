@@ -125,21 +125,17 @@
 
         <h2>Login to access and manage your account today.</h2>
         <br>
-<form method="post" style="max-width:600px;"  th:object="${customer}" th:action="@{/login.html}">
+<form method="post" style="max-width:600px;"  th:object="${customer}" th:action="@{/login}">
     <br>
     <div class="form-group">
-        <label th:for="username">Username</label>
-        <label>
-            <input class="form-control" type="text" placeholder="Enter Username" name="username" required>
-        </label>
-        <!--<span th:errors="*{username}" class="error"></span>-->
+        <label th:for="username"><b>Username</b></label>
+        <input class="form-control" th:type="text" placeholder="Enter Username" th:field="*{username}" />
+        <span th:errors="*{username}" class="error"></span>
     </div>
     <div class="form-group">
-        <label th:for="password">Password</label>
-        <label>
-            <input class="form-control" type="password" placeholder="Enter Password" name="password" required>
-        </label>
-        <!--<span th:errors="*{password}" class="error"></span>-->
+        <label th:for="password"><b>Password</b></label>
+        <input class="form-control" th:type="password" placeholder="Enter Password" th:field="*{password}" />
+        <span th:errors="*{password}" class="error"></span>
     </div>
 <br>
     <button type="submit" class="submit-button">Login</button>

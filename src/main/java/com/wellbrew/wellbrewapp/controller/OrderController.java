@@ -35,10 +35,10 @@ public class OrderController {
 
     // request path: /order
     @RequestMapping(value = "index")
-    public @ResponseBody String index(Model model) {
+    public String index(Model model) {
 
-        model.addAttribute("products", orderDao.findAll());
-        model.addAttribute("title", "Products");
+        model.addAttribute("orders", orderDao.findAll());
+        model.addAttribute("title", "Order Lists");
 
         return "OrderMain/index";
     }
@@ -48,7 +48,7 @@ public class OrderController {
     public String displayAddProductForm(Model model) {
 
         model.addAttribute("products", productDao.findAll());
-        model.addAttribute("title","Add Order");
+        model.addAttribute("title","Create Order");
         model.addAttribute(new Orders());
 
         return"OrderMain/add";

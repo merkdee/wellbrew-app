@@ -1,11 +1,12 @@
 package com.wellbrew.wellbrewapp.model;
 
-import com.wellbrew.wellbrewapp.model.Customer;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 
 @Entity
@@ -15,17 +16,17 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Calendar date;
 
     @ManyToOne
     private Customer customer;
 
-    @NotNull
     @Size(min=3,max=15)
     private String name;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany
+    @JoinColumn(name = "product_id")
     private List<Product> products = new ArrayList<>();
 
 
@@ -74,5 +75,4 @@ public class Orders {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-
 }

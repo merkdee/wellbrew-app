@@ -1,7 +1,5 @@
 package com.wellbrew.wellbrewapp.controller;
 
-import com.wellbrew.wellbrewapp.model.Customer;
-import com.wellbrew.wellbrewapp.model.Orders;
 import com.wellbrew.wellbrewapp.model.Product;
 import com.wellbrew.wellbrewapp.model.data.CustomerDao;
 import com.wellbrew.wellbrewapp.model.data.OrderDao;
@@ -10,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("product")
@@ -59,19 +58,15 @@ public class ProductController {
 
     // Request path: product/add
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddProductForm(@ModelAttribute @Valid Product product, Customer customer, Errors errors, Model model) {
+    public String processAddProductForm(@ModelAttribute @Valid Product product, Errors errors, Model model) {
 
-        String username = customer.getUsername();
-
-        model.addAttribute(product);
 
         // validating errors
         if (errors.hasErrors()) {
             return"ProductMain/add";
 
         }
-        Customer cust = customerDao.findByUsername(username);
-        product.setCustomer(cust);
+
         productDao.save(product);
         model.addAttribute(new Product());
         return "ProductMain/add";

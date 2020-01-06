@@ -1,11 +1,8 @@
 package com.wellbrew.wellbrewapp.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.math.BigDecimal;
-import java.util.*;
 
 @Entity
 public class Product {
@@ -33,8 +30,8 @@ public class Product {
     private List<Orders> orders = new ArrayList<>();*/
     /*private Set<Comment> comments = new LinkedHashSet<Comment>();*/
 
-    /*@ManyToOne
-    private Orders orders;*/
+    @ManyToOne
+    private Orders orders;
 
 
     public Product(String name, int amount, String note, int price, String vendor) {
@@ -112,11 +109,11 @@ public class Product {
         this.comments = comments;
     }*/
 
-    /*public Orders getOrders() {
+    public Orders getOrders() {
         return orders;
     }
 
     public void setOrders(Orders orders) {
         this.orders = orders;
-    }*/
+    }
 }

@@ -1,6 +1,5 @@
 package com.wellbrew.wellbrewapp.controller;
 
-import com.wellbrew.wellbrewapp.model.Customer;
 import com.wellbrew.wellbrewapp.model.Orders;
 import com.wellbrew.wellbrewapp.model.Product;
 import com.wellbrew.wellbrewapp.model.data.CustomerDao;
@@ -10,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -59,11 +61,11 @@ public class OrderController {
     public String processAddProductForm(@ModelAttribute @Valid Orders orders, Product product, Errors errors, Model model) {
 
         /*model.addAttribute("products", productDao.findAll());*/
-        model.addAttribute(product);
+      /*  model.addAttribute(product);
         productDao.findAll();
 
         model.addAttribute(orders);
-
+*/
         // validating errors
         if (errors.hasErrors()) {
             return"OrderMain/add";

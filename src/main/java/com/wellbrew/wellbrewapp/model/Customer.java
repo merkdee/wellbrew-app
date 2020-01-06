@@ -1,12 +1,9 @@
 package com.wellbrew.wellbrewapp.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -28,7 +25,8 @@ public class Customer {
     @NotNull(message = "Passwords don't match.")
     private String verifyPassword;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany
+    @JoinColumn(name = "orders_id")
     private List<Orders> invoice = new ArrayList<>();
 
     public Customer(String username, String password, List<Orders> invoice) {
